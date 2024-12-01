@@ -1,26 +1,26 @@
-import {model, Schema} from 'mongoose';
+import mongoose from "mongoose";
 
-const userSchema = new Schema({
-    name: {
+const UserSchema = new mongoose.Schema({
+    fullname: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        required: true
-    },
-    picture: {
-        type: String,
         required: true,
-        default : 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png'
     },
-}, {timestamps : true})
+    profilePic: {
+        type: String,
+        required: false,
+        default: 'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg'
+    }
+}, { timestamps: true })
 
-const User = model("User", userSchema)
+const User = mongoose.model("User", UserSchema);
 
-
-module.exports = User
+export default User ;
