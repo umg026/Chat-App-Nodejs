@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import User from "../models/usermodel";
+import User from "../models/usermodel.js";
 
-export const checkAuth = async (req, res, next) => {
+ export const checkAuth = async (req, res, next) => {
     try {
         const tokenCheck = req.cookies.uid
         console.log("check token", tokenCheck);
