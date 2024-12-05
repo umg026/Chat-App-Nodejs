@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
 import User from "../models/usermodel.js";
 
- export const checkAuth = async (req, res, next) => {
+ export const protectRoute = async (req, res, next) => {
     try {
         const tokenCheck = req.cookies.uid
         console.log("check token", tokenCheck);
+
         if (!tokenCheck) {
             return res.status(401).json({ msg: "Token is missing!" })
         }
@@ -19,6 +20,7 @@ import User from "../models/usermodel.js";
         next()
     }
     catch (error) {
+        res.status(500).json({ message: "Internal server error", error });
         console.log(error);
     }
 }

@@ -1,11 +1,13 @@
 import express from 'express';
-import { handelUserLogin, handelUserSignup, handelUserLogout } from '../controller/authController.js'
+import { handelUserLogin, handelUserSignup, handelUserLogout, checkAuth } from '../controller/authController.js'
+import { protectRoute } from '../middleware/checkAuth.js';
 const authRouter = express.Router();
 
 
 authRouter.post('/signup', handelUserSignup);
 authRouter.post('/login', handelUserLogin);
-authRouter.post('/login', handelUserLogout);
+authRouter.post('/logout', handelUserLogout);
+authRouter.get("/check", protectRoute, checkAuth);
 
 
 export { authRouter };
