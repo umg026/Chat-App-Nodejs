@@ -20,7 +20,7 @@ function App() {
  console.log("auth user in FE", authUser);
  
   return (
-
+   <div data-theme="dark">
     <BrowserRouter>
       <ToastContainer />
       <Navbar />
@@ -31,6 +31,7 @@ function App() {
 
       </Switch>
     </BrowserRouter>
+   </div>
   );
 }
 
