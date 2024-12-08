@@ -4,7 +4,7 @@ import User from "../models/usermodel.js";
  export const protectRoute = async (req, res, next) => {
     try {
         const tokenCheck = req.cookies.uid
-        console.log("check token", tokenCheck);
+        // console.log("check token", tokenCheck);
 
         if (!tokenCheck) {
             return res.status(401).json({ msg: "Token is missing!" })

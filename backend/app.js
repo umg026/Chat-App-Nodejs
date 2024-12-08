@@ -16,7 +16,10 @@ app.set('view engine', 'ejs');
 app.set("views", path.resolve("./views"))
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}))
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.use('/api/auth', authRouter)
