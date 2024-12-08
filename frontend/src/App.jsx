@@ -17,7 +17,8 @@ function App() {
   }, [checkAuth])
 
   if(isCheckingAuth && !authUser) return <div>Loading...</div>
-
+ console.log("auth user in FE", authUser);
+ 
   return (
 
     <BrowserRouter>
