@@ -7,8 +7,8 @@ import { toast } from 'react-toastify';
 export default function Login() {
   const [showPass, setShowPass] = useState(false)
   const [formData, setFormData] = useState({
-    email: "",
-    password: ""
+    email: "umg@gmail.com",
+    password: "123456"
   })
 
   const { login, isLogging } = useAuthStore()

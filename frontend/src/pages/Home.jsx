@@ -1,16 +1,22 @@
 import React from 'react'
+import { useChatStore } from '../store/useChatStore'
+import NoChatSelected from '../component/NoChatSelected'
+import ChatContainer from '../component/ChatContainer'
+import Sidebar from '../component/Sidebar'
 
 function Home() {
+  const { selectedUser } = useChatStore()
   return (
-    <div className='text-red-500 text-2xl'>
+    <div className="h-screen bg-base-200">
+      <div className="flex items-center justify-center pt-20 px-4">
+        <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-[calc(100vh-8rem)]">
+          <div className="flex h-full rounded-lg overflow-hidden">
+            <Sidebar />
 
-      <button className="btn">Button</button>
-      <button className="btn btn-neutral">Neutral</button>
-      <button className="btn btn-primary">Primary</button>
-      <button className="btn btn-secondary">Secondary</button>
-      <button className="btn btn-accent">Accent</button>
-      <button className="btn btn-ghost">Ghost</button>
-      <button className="btn btn-link">Link</button>
+            {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
