@@ -12,8 +12,10 @@ import User from "../models/usermodel.js";
 
         const decode = jwt.verify(tokenCheck, process.env.JWT_SECRET)
         if (!decode) return res.status(401).json({ msg: "Token is invalid!" })
+            // console.log("jwt decode", decode);
 
-        const user = await User.findById(decode.userId).select("-password");
+        const user = await User.findById(decode.userID).select("-password");
+        // console.log("user find by id in middleware", user);
         if (!user) return res.status(404).json({ msg: "User not found!" })
 
         req.user = user
