@@ -6,7 +6,6 @@ import { connectDB } from './config/db.js';
 import { authRouter } from './routes/users.js';
 import { msgRouter } from './routes/msg.js';
 import cors from 'cors';
-import path from "path";
 // import morgan from 'morgan';
 import { app, io, server } from './config/socket.js';
 dotenv.config();
