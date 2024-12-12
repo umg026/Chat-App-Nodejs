@@ -47,11 +47,11 @@ const handelUserSignup = async (req, res) => {
 
 const handelUserLogin = async (req, res) => {
     const { email, password } = req.body;
-    console.log("req.body in login", req.body);
+    // console.log("req.body in login", req.body);
 
     try {
         const user = await User.findOne({ email });
-        console.log("user details", user);
+        // console.log("user details", user);
 
         if (!user) {
             return res.status(400).json({ msg: "Failed to authenticate" });
