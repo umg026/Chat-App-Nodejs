@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useChatStore } from '../store/useChatStore'
 import { Users } from 'lucide-react';
+import { useAuthStore } from '../store/useAuth';
 
 export default function Sidebar() {
 
   const { isUsersLoading, selectedUser, users, getUsers, setSelectedUser } = useChatStore()
-  const onlineusers = [];
-
+  const { onlineUsers } = useAuthStore()
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Sidebar() {
             />
             <span className="text-sm">Show online only</span>
           </label>
-          <span className="text-xs text-zinc-500">({onlineusers.length - 1} online)</span>
+          <span className="text-xs text-zinc-500">({onlineUsers.length !== 0 ? (onlineUsers.length - 1) : "0"} online)</span>
         </div>
       </div>
 
@@ -54,7 +54,7 @@ export default function Sidebar() {
                 alt={user.name}
                 className="size-12 object-cover rounded-full"
               />
-              {onlineusers.includes(user._id) && (
+              {onlineUsers.includes(user._id) && (
                 <span
                   className="absolute bottom-0 right-0 size-3 bg-green-500 
                 rounded-full ring-2 ring-zinc-900"
@@ -64,9 +64,9 @@ export default function Sidebar() {
 
             {/* User info - only visible on larger screens */}
             <div className="hidden lg:block text-left min-w-0">
-              <div className="font-medium truncate">{user.fullName}</div>
+              <div className="font-medium truncate">{user.fullname}</div>
               <div className="text-sm text-zinc-400">
-                {onlineusers.includes(user._id) ? "Online" : "Offline"}
+                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
               </div>
             </div>
           </button>

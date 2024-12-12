@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch,Redirect  } from 'react-router-dom'; // Correct imports for React Router v5
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'; // Correct imports for React Router v5
 import Home from './pages/Home';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,29 +9,30 @@ import { useAuthStore } from './store/useAuth';
 import { useEffect } from 'react';
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore()
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore()
+
+  console.log("Online Users", onlineUsers);
   useEffect(() => {
     checkAuth()
-    console.log("useeffcet called", authUser);
-    
+
   }, [checkAuth])
 
-  if(isCheckingAuth && !authUser) return <div>Loading...</div>
- console.log("auth user in FE", authUser);
- 
-  return (
-   <div data-theme="dark">
-    <BrowserRouter>
-      <ToastContainer />
-      <Navbar />
-      <Switch>
-        <Route path="/" exact  render={() => (authUser ? <Home /> : <Redirect to="/login" />)}  />
-        <Route path="/signup" exact render={() => (!authUser ? <Signup /> : <Redirect to="/" />)} />
-        <Route path="/login" exact  render={() => (!authUser ? <Login /> : <Redirect to="/" />)} />
+  if (isCheckingAuth && !authUser) return <div>Loading...</div>
+  //  console.log("auth user in FE", authUser);
 
-      </Switch>
-    </BrowserRouter>
-   </div>
+  return (
+    <div data-theme="dark">
+      <BrowserRouter>
+        <ToastContainer />
+        <Navbar />
+        <Switch>
+          <Route path="/" exact render={() => (authUser ? <Home /> : <Redirect to="/login" />)} />
+          <Route path="/signup" exact render={() => (!authUser ? <Signup /> : <Redirect to="/" />)} />
+          <Route path="/login" exact render={() => (!authUser ? <Login /> : <Redirect to="/" />)} />
+
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
