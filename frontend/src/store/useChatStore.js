@@ -9,6 +9,7 @@ export const useChatStore = create((set, get) => ({
     selectedUser: null,
     isUsersLoading: false,
     isMessagesLoading: false,
+    unreadMessages: {},
 
     getUsers: async () => {
         set({ isUsersLoading: true });
@@ -33,7 +34,16 @@ export const useChatStore = create((set, get) => ({
             set({ isMessagesLoading: false });
         }
     },
-    setSelectedUser: (selectedUser) => set({ selectedUser }),
+    setSelectedUser: (selectedUser) => {
+        set({ selectedUser })
+        set((state) => {
+            const unreadMessages = { ...state.unreadMessages };
+            console.log("unreadMessgaes", unreadMessages);
+            
+            delete unreadMessages[selectedUser._id]; // Mark this user's messages as read
+            return { unreadMessages };
+        });
+    },
 
     sendMessage : async (messageData)=> {
       const {selectedUser, messages} = get()
@@ -53,7 +63,16 @@ export const useChatStore = create((set, get) => ({
         const socket = useAuthStore.getState().socket;
 
         socket.on("newMessage", (newMessage) => {
-            if(newMessage.senderId !== selectedUser._id) return;
+            set((state)=>{
+                const unreadMessages = { ...state.unreadMessages };
+                if (newMessage.senderId !== selectedUser?._id) {
+                    unreadMessages[newMessage.senderId] = (unreadMessages[newMessage.senderId] || 0) + 1;
+                }
+                return { unreadMessages };
+            })
+
+
+
             set({
                 messages: [...get().messages, newMessage]
             })

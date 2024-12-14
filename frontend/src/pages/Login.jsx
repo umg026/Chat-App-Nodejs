@@ -7,8 +7,8 @@ import { toast } from 'react-toastify';
 export default function Login() {
   const [showPass, setShowPass] = useState(false)
   const [formData, setFormData] = useState({
-    email: "umg@gmail.com",
-    password: "123456"
+    email: "",
+    password: ""
   })
 
   const { login, isLogging } = useAuthStore()
@@ -70,7 +70,7 @@ export default function Login() {
                 <input
                   type={showPass ? "text" : "password"}
                   className={`input input-bordered w-full pl-10`}
-                  placeholder="••••••••"
+                  placeholder="enter password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />

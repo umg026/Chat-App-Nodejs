@@ -55,7 +55,9 @@ export const useAuthStore = create((set, get) => ({
             get().connectSoket();
         }
         catch (error) {
-            toast.error(error.response.data.message);
+            console.log("error", error);
+            
+            toast.error(error.response.data.msg);
         }
         finally {
             set({ isLogging: false });
@@ -77,7 +79,7 @@ export const useAuthStore = create((set, get) => ({
     connectSoket: () => {
         const { authUser } = get()
         if (!authUser || get().socket?.connected) return;
-        const socket = io("/", {
+        const socket = io("http://localhost:1201/", {
             query: {
                 userId: authUser._id,
             }
