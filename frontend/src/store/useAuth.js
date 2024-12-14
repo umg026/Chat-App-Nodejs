@@ -79,7 +79,7 @@ export const useAuthStore = create((set, get) => ({
     connectSoket: () => {
         const { authUser } = get()
         if (!authUser || get().socket?.connected) return;
-        const socket = io("http://localhost:1201/", {
+        const socket = io("/", {
             query: {
                 userId: authUser._id,
             }
