@@ -5,7 +5,9 @@ import { useAuthStore } from '../store/useAuth';
 
 export default function Sidebar() {
 
-  const { isUsersLoading, selectedUser, users, getUsers, setSelectedUser } = useChatStore()
+  const { isUsersLoading, selectedUser, users, getUsers, setSelectedUser, messages, unreadMessages } = useChatStore()
+  // console.log("messages", messages);
+
   const { onlineUsers } = useAuthStore()
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
@@ -21,32 +23,19 @@ export default function Sidebar() {
         <div className="flex items-center gap-2">
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
-        </div>
-        {/* TODO: Online filter toggle */}
-        <div className="mt-3 hidden lg:flex items-center gap-2">
-          <label className="cursor-pointer flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={showOnlineOnly}
-              onChange={(e) => setShowOnlineOnly(e.target.checked)}
-              className="checkbox checkbox-sm"
-            />
-            <span className="text-sm">Show online only</span>
-          </label>
-          <span className="text-xs text-zinc-500">({onlineUsers.length !== 0 ? (onlineUsers.length - 1) : "0"} online)</span>
+          {/* <span className="text-xs text-zinc-500">({onlineUsers.length !== 0 ? (onlineUsers.length - 1) : "0"} online</span> */}
         </div>
       </div>
 
       <div className="overflow-y-auto w-full py-3">
-        {users.map((user) => (
+        {Array.isArray(users) && users.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className={`
-            w-full p-3 flex items-center gap-3
-            hover:bg-base-300 transition-colors
-            ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
-          `}
+            className={`w-full p-3 flex items-center gap-3 hover:bg-base-300 transition-colors 
+              ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
+              ${unreadMessages[user._id] ? "bg-yellow-200" : ""}  // Highlight user with unread messages
+            `}
           >
             <div className="relative mx-auto lg:mx-0">
               <img
@@ -59,6 +48,9 @@ export default function Sidebar() {
                   className="absolute bottom-0 right-0 size-3 bg-green-500 
                 rounded-full ring-2 ring-zinc-900"
                 />
+              )}
+              {unreadMessages[user._id] && (
+                <span className="absolute top-0 right-0 size-3 bg-red-500 rounded-full ring-2 ring-zinc-900" />
               )}
             </div>
 

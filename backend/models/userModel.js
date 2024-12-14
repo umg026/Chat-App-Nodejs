@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         required: false,
-        default: 'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg'
+        default: 'https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg'
     }
 }, { timestamps: true })
 
