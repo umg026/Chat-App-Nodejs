@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'; // Correct imports for React Router v5
 import Home from './pages/Home';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './component/Navbar';
 import Signup from './pages/Signup';
@@ -11,16 +11,15 @@ import Settings from './pages/Settings';
 import { useThemeStore } from './store/useTheme';
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore()
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore()
   const { theme } = useThemeStore()
-  // console.log("Online Users", onlineUsers);
   useEffect(() => {
     checkAuth()
 
   }, [checkAuth])
 
   if (isCheckingAuth && !authUser) return <div>Loading...</div>
-  //  console.log("auth user in FE", authUser);
+   console.log("auth user", authUser);
 
   return (
     <div data-theme={theme}>
