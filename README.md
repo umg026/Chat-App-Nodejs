@@ -5,7 +5,12 @@ This is a full-stack chat application that allows users to sign up, log in, chat
 ## Demo
 
 You can view the live demo of the chat app [here](https://chat-app-nodejs-b798.onrender.com/login).
-
+## Database connect: 
+```
+For connect database in terminal:
+mongosh "mongodb+srv://cluster0.xfopc.mongodb.net/" --apiVersion 1 --username umangprajapati026
+connect admin for password
+```
 ## Features
 
 - **User Authentication**: Users can sign up, log in, and maintain sessions.
