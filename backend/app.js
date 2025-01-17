@@ -8,6 +8,9 @@ import { msgRouter } from './routes/msg.js';
 import cors from 'cors';
 // import morgan from 'morgan';
 import { app, io, server } from './config/socket.js';
+import swaggerUi  from 'swagger-ui-express';
+import swaggerDocument  from './swagger-output.json' assert { type: 'json' };
+
 dotenv.config();
 const __dirname = path.resolve()
 
@@ -26,9 +29,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(express.static(path.join(process.cwd(), 'public')));
-app.use(express.static(path.join(__dirname, '../frontend/dist')))
-app.use('/api/auth', authRouter)
-app.use('/api/msg', msgRouter)
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); // swagger docs
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 })
